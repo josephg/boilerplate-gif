@@ -1,0 +1,32 @@
+{
+  "name": "boilerplate-gif",
+  "version": "1.0.0",
+  "description": "Make an animated gif from a boilerplate world",
+  "main": "makegif.js",
+  "dependencies": {
+    "boilerplate-sim": "^1.0.3",
+    "canvas": "^1.1.6",
+    "gifencoder": "^1.0.3"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.7.1"
+  }
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "coffee -cm makegif.coffee"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/josephg/boilerplate-gif.git"
+  },
+  "keywords": [
+    "boilerplate",
+    "gif"
+  ],
+  "author": "Joseph Gentle <me@josephg.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/josephg/boilerplate-gif/issues"
+  },
+  "homepage": "https://github.com/josephg/boilerplate-gif"
+}
