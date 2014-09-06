@@ -10,7 +10,10 @@
   },
   "devDependencies": {
     "coffee-script": "^1.7.1"
-  }
+  },
+  "bin": {
+    "boil-gif": "./run.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublish": "coffee -cm makegif.coffee"

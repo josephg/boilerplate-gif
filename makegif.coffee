@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 Simulator = require 'boilerplate-sim'
 GifEncoder = require("gifencoder")
 fs = require 'fs'
@@ -72,6 +74,10 @@ module.exports = makeGif = (inputFilename, outputFilename, opts = {}) ->
   opts.delay ||= 200
   opts.repeat ?= true
 
+  if !outputFilename
+    path = require 'path'
+    outputFilename = (path.basename(inputFilename).split('.')[0]) + '.gif'
+
   grid = JSON.parse fs.readFileSync(inputFilename, 'utf8').split('\n')[0]
   delete grid.tw
   delete grid.th
@@ -121,17 +127,5 @@ module.exports = makeGif = (inputFilename, outputFilename, opts = {}) ->
 
   encoder.finish()
 
-if require.main == module
-  path = require 'path'
-  inputFilename = process.argv[2]
-
-  throw Error 'Missing input file argument' unless inputFilename
-
-  outputFilename = process.argv[3]
-  if !outputFilename
-    outputFilename = (path.basename(inputFilename).split('.')[0]) + '.gif'
-
-  makeGif inputFilename, outputFilename
-  console.log "Made #{outputFilename} from #{inputFilename}"
-
+  outputFilename
 
