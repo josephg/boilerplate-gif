@@ -1,6 +1,6 @@
 # Animated gif maker for boilerplate
 
-This makes animated gifs from boilerplate worlds.
+This makes sweet gifs from boilerplate programs
 
 ![sweet gifs](4spin.gif)
 
