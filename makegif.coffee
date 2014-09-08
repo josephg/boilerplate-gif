@@ -15,6 +15,8 @@ colors =
   solid: '#09191B'
   thinshuttle: '#D887F8'
   thinsolid: '#B5B5B5'
+  buttondown: '#FFA93D'
+  buttonup: '#CC7B00'
 
 darkColors =
   bridge: '#487693'
@@ -25,6 +27,8 @@ darkColors =
   solid: '#706F76'
   thinshuttle: '#8E56A4'
   thinsolid: '#7D7D7D'
+  buttondown: 'rgb(255,169,61)'
+  buttonup: 'rgb(171,99,18)'
 
 parseXY = (k) ->
   [x,y] = k.split /,/
@@ -53,7 +57,9 @@ draw = (simulator, ctx, worldToScreen, size) ->
     ctx.fillStyle = colors[v]
     ctx.fillRect px, py, size, size
 
-    if v is 'nothing' and (v2 = simulator.get(tx,ty-1)) isnt 'nothing'
+    downCells = ['nothing', 'buttondown']
+    v2 = simulator.get(tx,ty-1)
+    if v in downCells and v != v2
       ctx.fillStyle = darkColors[v2 ? 'solid']
       ctx.fillRect px, py, size, size*0.3
 
