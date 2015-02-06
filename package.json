@@ -1,6 +1,6 @@
 {
   "name": "boilerplate-gif",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Make an animated gif from a boilerplate world",
   "main": "makegif.js",
   "dependencies": {
