@@ -10,15 +10,11 @@ parseXY = (k) ->
   [x,y] = k.split /,/
   {x:parseInt(x), y:parseInt(y)}
 
-module.exports = makeGif = (inputFilename, outputFilename, opts = {}) ->
+makeGifStr = (gridString, outputFilename, opts = {}) ->
   opts.delay ||= 200
   opts.repeat ?= true
 
-  if !outputFilename
-    path = require 'path'
-    outputFilename = (path.basename(inputFilename).split('.')[0]) + '.gif'
-
-  grid = JSON.parse fs.readFileSync(inputFilename, 'utf8').split('\n')[0]
+  grid = JSON.parse gridString.split('\n')[0]
   delete grid.tw
   delete grid.th
 
@@ -68,4 +64,30 @@ module.exports = makeGif = (inputFilename, outputFilename, opts = {}) ->
   encoder.finish()
 
   outputFilename
+
+# Take in some input. If its JSON, we'll assume thats the grid and parse it. If
+# its a filename, we'll open it. If its a stream, we'll read from it.
+module.exports = makeGif = (input, opts, callback) ->
+  if typeof input is 'string'
+    try
+      gridStr = JSON.parse input
+      outputFilename = 'data.gif'
+    catch
+      gridStr = fs.readFileSync(input, 'utf8')
+      path = require 'path'
+      outputFilename = (path.basename(input).split('.')[0]) + '.gif'
+
+    callback null, makeGifStr gridStr, opts.output || outputFilename, opts
+
+  else # Buffer the input stream
+
+    buffer = []
+    input.on 'data', (data) -> buffer.push data
+    input.on 'end', ->
+      gridStr = buffer.join ''
+
+      callback null, makeGifStr gridStr, opts.output || 'data.gif', opts
+
+
+
 
